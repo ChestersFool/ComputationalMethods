@@ -7,11 +7,11 @@ using std::cout, std::vector, std::setw;
 
 vector<double> MatrixMultiplication(vector<vector<double>> &A, vector<double> &x)
 {
-    vector<double> result;
-    result.reserve(4);
+    vector<double> result(4);
+    //result.reserve(4);
 
-    for (int i = 0; i < A.size(); i++)
-        for (int j = 0; j < A[i].size(); j++)
+    for (auto i = 0; i < A.size(); i++)
+        for (auto j = 0; j < A[i].size(); j++)
             result[i] += A[i][j] * x[j];
 
     return result;
@@ -28,10 +28,13 @@ void PrintMatrix(vector<vector<double>> &matrix)
     }
 }
 
-void PrintMatrix(vector<double> &array)
+void PrintVector(vector<double> &array)
 {
-    for (auto &element : array)
-        cout << setw(12) <<  element << ' ';
+    for (auto element : array)
+    {
+        auto t = element;
+        cout << setw(12) << element << ' ';
+    }
 }
 
 int main()
@@ -41,14 +44,12 @@ int main()
                                 {-0.0713, 0.0419, 0.1018, -0.1204},
                                 {0.0932, -0.0746, -0.1204, 0.2317}};
 
-    vector<double> x0 = {1, 0, 0, 0}, r0;
+    vector<double> x0 = {1, 0, 0, 0}, r0(4);
     vector<double> b = {0.1528, -0.0985, -0.2474, 0.3872};
     const double eps = 0.0000012;
 
-    r0.reserve(4);
     r0 = MatrixMultiplication(A, x0);
-    PrintMatrix(r0);
+    PrintVector(r0);
 
-    std::cin >> b[0];
     return 0;
 }
