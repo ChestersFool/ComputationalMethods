@@ -1,8 +1,10 @@
 {
-    "files.associations": {
-        "vector": "cpp",
-        "iomanip": "cpp",
-        "tuple": "cpp",
-        "utility": "cpp"
-    }
+  "files.associations": {
+    "vector": "cpp",
+    "iomanip": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp",
+    "iostream": "cpp",
+    "cmath": "cpp"
+  }
 }

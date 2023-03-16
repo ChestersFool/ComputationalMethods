@@ -2,6 +2,7 @@
 #include <vector>
 #include <utility>
 #include <iomanip>
+#include <cmath>
 
 using std::cout, std::vector, std::setw;
 
@@ -27,12 +28,22 @@ vector<double> VectorNumberMultiplication(vector<double> &vec, double &number)
     return result;
 }
 
-vector<double> VectorSubtraction(vector<double> &b, vector<double> &A)
+vector<double> VectorAddtion(vector<double> &first, vector<double> &second)
 {
     vector<double> result(4);
 
     for (int i = 0; i < 4; i++)
-        result[i] = b[i] - A[i];
+        result[i] = first[i] + second[i];
+
+    return result;
+}
+
+vector<double> VectorSubtraction(vector<double> &first, vector<double> &second)
+{
+    vector<double> result(4);
+
+    for (int i = 0; i < 4; i++)
+        result[i] = first[i] - second[i];
 
     return result;
 }
@@ -45,6 +56,17 @@ double VectorScalar(vector<double> &first, vector<double> &second)
         result += first[i] * second[i];
 
     return result;
+}
+
+double vectorNorm(vector<double> &vec)
+{
+    double max = fabs(vec[0]);
+
+    for (int i = 1; i < vec.size(); i++)
+        if (fabs(vec[i]) > max)
+            max = fabs(vec[i]);
+
+    return max;
 }
 
 void PrintMatrix(vector<vector<double>> &matrix)
@@ -76,15 +98,15 @@ int main()
                                 {-0.0713, 0.0419, 0.1018, -0.1204},
                                 {0.0932, -0.0746, -0.1204, 0.2317}};
     vector<double> b = {0.1528, -0.0985, -0.2474, 0.3872};
-    vector<double> x0 = {1, 0, 0, 0}, r0(4), p0(4), qk(4);
-    double alfaK;
-    const double eps = 0.0000012;
+    vector<double> x0 = {1, 1, 1, 1}, r0(4), p0(4), qk(4), Vtemp(4);
+    double alfaK, betaK, norm;
+    const double EPS = 0.0000012;
 
     // A * x_0
     r0 = MatrixVectorMultiplication(A, x0);
-    cout << "A * x_0 ";
-    PrintVector(r0);
-    // b - Ax_0
+    // cout << "A * x_0 ";
+    // PrintVector(r0);
+    //  b - Ax_0
     r0 = VectorSubtraction(b, r0);
     cout << "b - A * x_0 ";
     PrintVector(r0);
@@ -102,5 +124,33 @@ int main()
     cout << "alfaK = (r_k, p_k) / (q_k, p_k) " << alfaK << '\n';
 
     // x_k+1 = x_k + alfaK * p_k
-    // x0 = Vector return 0;
+    Vtemp = VectorNumberMultiplication(x0, alfaK);
+    x0 = VectorSubtraction(x0, Vtemp);
+    cout << "x_k+1 = x_k + alfaK * p_k";
+    PrintVector(x0);
+
+    // r_k+1 = r_k - alfaK * q_k
+    Vtemp = VectorNumberMultiplication(qk, alfaK);
+    r0 = VectorSubtraction(r0, Vtemp);
+    cout << "r_k+1 = r_k - alfaK * q_k";
+    PrintVector(r0);
+
+    norm = vectorNorm(r0);
+    cout << "norm of r0 " << norm << '\n';
+
+    if (norm <= EPS)
+    {
+        // Задовільняє умову
+    }
+    else
+    {
+        betaK = VectorScalar(r0, qk) / VectorScalar(p0, qk);
+        cout << "betaK = " << betaK << '\n';
+        // p_k+1 = r_k+1 - betaK * p_k
+        Vtemp = VectorNumberMultiplication(p0, betaK);
+        p0 = VectorSubtraction(r0, Vtemp);
+        cout << "p_k+1 = r_k+1 - betaK * p_k";
+        PrintVector(p0);
+    }
+    return 0;
 }
