@@ -100,7 +100,8 @@ int main()
     vector<double> b = {0.1528, -0.0985, -0.2474, 0.3872};
     vector<double> x0 = {1, 1, 1, 1}, r0(4), p0(4), qk(4), Vtemp(4);
     double alfaK, betaK, norm;
-    const double EPS = 0.00000012;
+    const double EPS = 0.01;
+    //const double EPS = 0.0001;
 
     // A * x_0
     r0 = MatrixVectorMultiplication(A, x0);
