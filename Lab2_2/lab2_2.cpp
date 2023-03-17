@@ -67,7 +67,7 @@ double vectorNorm(vector<double> &vec)
             max = fabs(vec[i]);
 
     return max;
-}
+}   
 
 void PrintMatrix(vector<vector<double>> &matrix)
 {
@@ -98,15 +98,15 @@ int main()
                                 {-0.0713, 0.0419, 0.1018, -0.1204},
                                 {0.0932, -0.0746, -0.1204, 0.2317}};
     vector<double> b = {0.1528, -0.0985, -0.2474, 0.3872};
-    vector<double> x0 = {1, 1, 1, 1}, r0(4), p0(4), qk(4), Vtemp(4);
+    vector<double> x0 = {0.41421, 0.24214, 0.234231, 0.1111}, r0(4), p0(4), qk(4), Vtemp(4);
     double alfaK, betaK, norm;
-    const double EPS = 0.01;
-    //const double EPS = 0.0001;
+    //const double EPS = 0.01;
+    const double EPS = 0.0001;
 
     // A * x_0
     r0 = MatrixVectorMultiplication(A, x0);
-    // cout << "A * x_0 ";
-    // PrintVector(r0);
+    cout << "A * x_0 ";
+    PrintVector(r0);
     //  b - Ax_0
     r0 = VectorSubtraction(b, r0);
     cout << "b - A * x_0  ||||||  ";
@@ -128,7 +128,7 @@ int main()
 
         // x_k+1 = x_k + alfaK * p_k
         Vtemp = VectorNumberMultiplication(x0, alfaK);
-        x0 = VectorSubtraction(x0, Vtemp);
+        x0 = VectorAddtion(x0, Vtemp);
         cout << "x_k+1 = x_k + alfaK * p_k  ||||||  ";
         PrintVector(x0);
 
