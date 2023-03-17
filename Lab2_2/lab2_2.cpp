@@ -127,7 +127,7 @@ int main()
         cout << "alfaK = (r_k, p_k) / (q_k, p_k)  ||||||  " << alfaK << '\n';
 
         // x_k+1 = x_k + alfaK * p_k
-        Vtemp = VectorNumberMultiplication(x0, alfaK);
+        Vtemp = VectorNumberMultiplication(p0, alfaK);
         x0 = VectorAddtion(x0, Vtemp);
         cout << "x_k+1 = x_k + alfaK * p_k  ||||||  ";
         PrintVector(x0);
