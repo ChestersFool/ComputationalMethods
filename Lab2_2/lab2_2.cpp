@@ -121,7 +121,7 @@ int main()
         qk = MatrixVectorMultiplication(A, p0);
         cout << "q_k = A * p_k  ||||||  ";
         PrintVector(qk);
-
+        //vmfmfmfdmmdf
         // alfaK = (r_k, p_k) / (q_k, p_k)
         alfaK = VectorScalar(r0, p0) / VectorScalar(qk, p0);
         cout << "alfaK = (r_k, p_k) / (q_k, p_k)  ||||||  " << alfaK << '\n';
